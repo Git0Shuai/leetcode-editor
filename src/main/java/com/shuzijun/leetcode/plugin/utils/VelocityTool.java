@@ -89,6 +89,25 @@ public class VelocityTool extends StringUtils {
         }
     }
 
+    /**
+     * replace characters which may not be suitable for source file name
+     */
+    public static String sourceFileName(String underscoreName) {
+        StringBuffer result = new StringBuffer(underscoreName.length());
+        for (int i = 0; i < underscoreName.length(); ++i) {
+            char ch = underscoreName.charAt(i);
+            if (i == 0 && Character.isDigit(ch)) {
+                result.append('x');
+                continue;
+            }
+            if (Character.isAlphabetic(ch) || Character.isDigit(ch) || ch == '_') {
+                result.append(ch);
+            } else {
+                result.append('x');
+            }
+        }
+        return result.toString();
+    }
 
     public static String snakeCaseName(String underscoreName) {
 
